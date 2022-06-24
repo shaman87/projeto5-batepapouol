@@ -31,4 +31,46 @@ function tratarErro(erro) {
     }
 }
 
+function buscarMensagens() {
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+    promessa.then(renderizarMensagens);
+    promessa.catch(mensagemErro);
+}
+
+function renderizarMensagens(mensagens) {
+    let conteudoMensagens = document.querySelector(".bloco-mensagens");
+    let exibirMensagens = mensagens.data;
+    
+    conteudoMensagens.innerHTML = "";
+
+    for(let i = 0; i < exibirMensagens.length; i++) {
+        if(exibirMensagens[i].type === "status") {
+            conteudoMensagens.innerHTML += `
+            <div class="entra-na-sala">
+                <div class="hora">${exibirMensagens[i].time}</div>
+                <div class="usuario">${exibirMensagens[i].from}</div>
+                <div>${exibirMensagens[i].text}</div>
+            </div>
+            `;
+        } else if(exibirMensagens[i].type === "message") {
+            conteudoMensagens.innerHTML += `
+            <div class="caixa-mensagem">
+                <div class="hora">${exibirMensagens[i].time}</div>
+                <div class="usuario">${exibirMensagens[i].from}</div>
+                <div>para</div>
+                <div class="usuario">${exibirMensagens[i].to}:</div>
+                <div>${exibirMensagens[i].text}</div>
+            </div>
+            `;
+        }
+    }
+}
+
+function mensagemErro(erro) {
+    alert("Servidor offline");
+    console.log(erro);
+}
+
 entrarNaSala();
+buscarMensagens();
+setInterval(buscarMensagens, 3000);
