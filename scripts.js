@@ -9,7 +9,7 @@ function entrarNaSala() {
 
 function manterConexao() {
     const userOnline = {name: nomeUsuario};
-    axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userOnline);
+    const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userOnline);
 }
 
 function tratarSucesso(sucesso) {
