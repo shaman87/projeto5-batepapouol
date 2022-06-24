@@ -1,15 +1,24 @@
+let nomeUsuario = prompt("Digite seu nome");
 function entrarNaSala() {
-    const nome = prompt("Digite seu nome");
-    const nomeUsuario = {name: nome};
-    const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nomeUsuario);
+    
+    const nome = {name: nomeUsuario};
+    const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nome);
     requisicao.then(tratarSucesso);
     requisicao.catch(tratarErro);
 }
 
+function manterConexao() {
+    const userOnline = {name: nomeUsuario};
+    const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userOnline);
+}
+
 function tratarSucesso(sucesso) {
     const certo = sucesso.status;
-    console.log(certo);
+    console.log(nomeUsuario);
     alert("sucesso");
+    if(certo === 200) {
+        setInterval(manterConexao, 5000);
+    }
 }
 
 function tratarErro(erro) {
