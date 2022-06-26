@@ -101,6 +101,13 @@ body {
     font-size: 18px;
     font-weight: 400;
     border: none;
+    padding: 10px;
+    width: 90%;
+}
+
+.escrever-mensagem input:focus {
+    outline: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 
 .escrever-mensagem input::placeholder {

@@ -25,7 +25,6 @@ function userOff(offline) {
 function tratarSucesso(sucesso) {
     const certo = sucesso.status;
     console.log(nomeUsuario);
-    alert("sucesso");
     if(certo === 200) {
         setInterval(manterConexao, 5000);
     }
@@ -34,7 +33,6 @@ function tratarSucesso(sucesso) {
 function tratarErro(erro) {
     const errado = erro.response.status;
     console.log(errado);
-    alert("erro");
     if(errado === 400) {
         nomeUsuario = prompt("Digite seu nome");
         entrarNaSala();
@@ -76,7 +74,7 @@ function renderizarMensagens(mensagens) {
     }
 
     const ultimaMensagem = document.querySelector(".bloco-mensagens");
-    ultimaMensagem.scrollIntoView({block: "end", behavior: "smooth"});
+    ultimaMensagem.scrollIntoView(false);
 }
 
 function mensagemErro(erro) {
@@ -84,8 +82,18 @@ function mensagemErro(erro) {
     console.log(erro);
 }
 
-function funciona() {
-    alert("aeee");
+function enviarMensagem() {
+    const mensagemEscrita = document.querySelector(".escrever-mensagem input").value;
+    const mensagemEnviada = {
+        from: nomeUsuario,
+        to: "Todos",
+        text: mensagemEscrita,
+        type: "message"
+    };
+    const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", mensagemEnviada);
+    document.querySelector(".escrever-mensagem input").value = "";
+    requisicao.then(buscarMensagens);
+    requisicao.catch(entrarNaSala);
 }
 
 entrarNaSala();
