@@ -107,3 +107,7 @@ body {
     color: #000000;
     font-style: italic;
 }
+
+.escrever-mensagem ion-icon {
+    cursor: pointer;
+}

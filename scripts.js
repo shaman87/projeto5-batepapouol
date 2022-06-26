@@ -10,6 +10,16 @@ function entrarNaSala() {
 function manterConexao() {
     const userOnline = {name: nomeUsuario};
     const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userOnline);
+    requisicao.then(userOn);
+    requisicao.catch(userOff);
+}
+
+function userOn(online) {
+    console.log(online.status);
+}
+
+function userOff(offline) {
+    console.log(offline.status);
 }
 
 function tratarSucesso(sucesso) {
@@ -64,11 +74,18 @@ function renderizarMensagens(mensagens) {
             `;
         }
     }
+
+    const ultimaMensagem = document.querySelector(".bloco-mensagens");
+    ultimaMensagem.scrollIntoView({block: "end", behavior: "smooth"});
 }
 
 function mensagemErro(erro) {
     alert("Servidor offline");
     console.log(erro);
+}
+
+function funciona() {
+    alert("aeee");
 }
 
 entrarNaSala();
