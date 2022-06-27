@@ -1,4 +1,4 @@
-let nomeUsuario = prompt("Digite seu nome");
+let nomeUsuario = prompt("Digite seu nome:");
 
 function entrarNaSala() {
     const nome = {name: nomeUsuario};
@@ -34,7 +34,7 @@ function tratarErro(erro) {
     const errado = erro.response.status;
     console.log(errado);
     if(errado === 400) {
-        nomeUsuario = prompt("Digite seu nome");
+        nomeUsuario = prompt("Escolha outro nome:");
         entrarNaSala();
     }
 }
